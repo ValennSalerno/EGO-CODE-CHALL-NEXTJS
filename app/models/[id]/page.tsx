@@ -21,89 +21,114 @@ export default async function ModelDetailPage({ params }: Props) {
   const model = result.data!;
 
   return (
-    <main className="max-w-7xl mx-auto px-6 py-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div className="order-1 md:order-0 flex justify-center">
-          <Image
-            src={model.photo}
-            alt={model.name}
-            width={576}
-            height={400}
-            className="w-full max-w-xl object-contain"
-          />
-        </div>
+    <div className="bg-white pb-10">
+      <section className="max-w-7xl mx-auto px-4 md:px-10 py-8 md:py-12">
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+          <div className="w-full md:w-1/2 flex justify-center">
+            <div className="relative w-full aspect-video md:aspect-4/3">
+              <Image
+                src={model.photo}
+                alt={model.name}
+                fill
+                className="object-contain object-center"
+                priority
+              />
+            </div>
+          </div>
 
-        <div className="space-y-4">
-          <div className="text-sm text-gray-500">{model.name}</div>
-          <h1 className="text-4xl font-bold text-[#191919]">
-            Preparada para cualquier desafío
-          </h1>
-          <p className="text-base text-gray-600">
-            Mayor durabilidad, estabilidad, confort de marcha y mucha seguridad.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-        </div>
-      </div>
-
-      <section className="mt-8">
-        <div className="overflow-x-auto -mx-6 px-6">
-          <div className="flex gap-4">
-            {Array.isArray(model.model_highlights) &&
-            model.model_highlights.length > 0 ? (
-              model.model_highlights.map((h, i) => (
-                <div
-                  key={i}
-                  className="min-w-60 bg-white border rounded shadow-sm p-3"
-                >
-                  <Image
-                    src={h.image}
-                    alt={h.title}
-                    width={240}
-                    height={144}
-                    className="w-full h-36 object-cover rounded"
-                  />
-                  <h3 className="mt-3 font-semibold">{h.title}</h3>
-                  <p className="text-sm text-gray-600">{h.content}</p>
-                </div>
-              ))
-            ) : (
-              <div className="text-gray-500">No highlights available</div>
-            )}
+          <div className="w-full md:w-1/2 flex flex-col gap-3">
+            <h2 className="text-[20px] font-bold text-[#191919]">
+              {model.name}
+            </h2>
+            <h1 className="text-[35px] md:text-[50px] font-bold text-[#191919] leading-tight">
+              Preparada para cualquier desafío
+            </h1>
+            <p className="text-[16px] text-[#373737] leading-relaxed">
+              Mayor durabilidad, estabilidad, confort de marcha y mucha
+              seguridad. Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="mt-10">
-        <h2 className="text-2xl font-semibold mb-4">
-          Especificaciones y características
-        </h2>
-        {Array.isArray(model.model_features) &&
-        model.model_features.length > 0 ? (
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {model.model_features.map((f, i) => (
-              <li key={i} className="border p-4 rounded">
-                <div className="flex items-start gap-4">
-                  {f.photo && (
+      <section className="bg-[#F7F7F7] py-8 md:py-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-10">
+          <div className="flex overflow-x-auto gap-6 pb-4 no-scrollbar snap-x snap-mandatory">
+            {model.model_highlights.map((highlight, index) => (
+              <div
+                key={index}
+                className="min-w-75 w-75 shrink-0 snap-start flex flex-col gap-3"
+              >
+                <div className="relative w-full h-40 rounded-lg overflow-hidden bg-white">
+                  <Image
+                    src={highlight.image}
+                    alt={highlight.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-[20px] font-semibold text-[#191919] mb-1">
+                    {highlight.title}
+                  </h3>
+                  <div
+                    className="text-[14px] text-[#373737] leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: highlight.content }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 md:px-10 py-8 md:py-12 space-y-12">
+        {model.model_features.map((feature, index) => {
+          if (feature.photo) {
+            const isEven = index % 2 === 0;
+            return (
+              <div
+                key={index}
+                className={`flex flex-col md:flex-row items-center gap-8 md:gap-12 ${
+                  isEven ? "md:flex-row-reverse" : ""
+                }`}
+              >
+                <div className="w-full md:w-1/2">
+                  <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-sm">
                     <Image
-                      src={f.photo}
-                      alt={f.name}
-                      width={112}
-                      height={80}
-                      className="w-28 h-20 object-cover rounded"
+                      src={feature.photo}
+                      alt={feature.name}
+                      fill
+                      className="object-cover"
                     />
-                  )}
-                  <div>
-                    <h3 className="font-semibold">{f.name}</h3>
-                    <p className="text-sm text-gray-600">{f.description}</p>
                   </div>
                 </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div>No features available</div>
-        )}
+
+                <div className="w-full md:w-1/2 flex flex-col gap-3">
+                  <h3 className="text-[20px] font-bold text-[#191919]">
+                    {feature.name}
+                  </h3>
+                  <p className="text-[16px] text-[#373737] leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div key={index} className="flex flex-col gap-2 max-w-3xl">
+              <h3 className="text-[20px] font-bold text-[#191919]">
+                {feature.name}
+              </h3>
+              <p className="text-[16px] text-[#373737] leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          );
+        })}
       </section>
-    </main>
+    </div>
   );
 }

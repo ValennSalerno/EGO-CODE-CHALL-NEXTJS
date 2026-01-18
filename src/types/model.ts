@@ -11,7 +11,7 @@ export type Model = {
 export type ModelFeature = {
   name: string;
   description: string;
-  photo: string;
+  photo?: string | null;
 };
 
 export type ModelHighlight = {

@@ -43,7 +43,7 @@ export default async function Home({
   const models = result.data ?? [];
 
   return (
-    <main className="max-w-7xl mx-auto px-6 py-12">
+    <div className="w-full max-w-7xl mx-auto px-6 py-12">
       <div className="mb-10">
         <h1 className="font-bold text-[35px] md:text-[50px] leading-tight text-[#191919] mb-8">
           Descubrí todos los modelos
@@ -59,6 +59,6 @@ export default async function Home({
           ))}
         </div>
       </section>
-    </main>
+    </div>
   );
 }

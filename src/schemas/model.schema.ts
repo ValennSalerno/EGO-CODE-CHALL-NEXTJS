@@ -13,7 +13,7 @@ export const modelSchema = z.object({
 export const modelFeatureSchema = z.object({
   name: z.string(),
   description: z.string(),
-  photo: z.string().url()
+  photo: z.string().url().nullish()
 });
 
 export const modelHighlightSchema = z.object({

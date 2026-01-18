@@ -2,50 +2,38 @@ import Link from "next/link";
 import Image from "next/image";
 import { Model } from "@/src/types/model";
 
-export default function ModelCard({
-  model,
-  selected = false,
-}: {
-  model: Model;
-  selected?: boolean;
-}) {
-  const borderClass = selected
-    ? "ring-2 ring-brand/70"
-    : "border border-transparent";
-  const titleClass = selected
-    ? "text-brand font-semibold"
-    : "text-[#191919] font-semibold";
-
+export default function ModelCard({ model }: { model: Model }) {
   return (
-    <article
-      className={`bg-white ${borderClass} rounded-lg p-4 flex flex-col items-center text-center`}
-    >
-      <Link href={`/models/${model.id}`} className="w-full">
-        <div className="w-full h-48 flex items-end justify-center overflow-hidden relative">
+    <div className="group flex flex-col items-center text-center">
+      <Link
+        href={`/models/${model.id}`}
+        className="flex flex-col items-center cursor-pointer"
+      >
+        <h3 className="text-2xl font-bold text-[#191919] group-hover:text-[#D0021B] transition-colors duration-300 mb-2">
+          {model.name}
+        </h3>
+
+        <div className="text-sm text-[#191919]">
+          {model.year} | ${model.price.toLocaleString("es-AR")}
+        </div>
+
+        <div className="relative w-67 h-45.5 md:w-67.25 md:h-53.75 my-4 flex items-center justify-center">
           <Image
             src={model.thumbnail}
             alt={model.name}
             fill
             className="object-contain"
+            sizes="(max-width: 768px) 268px, 269px"
+            priority={false}
           />
         </div>
 
-        <h3 className={`mt-4 text-xl ${titleClass}`}>{model.name}</h3>
-
-        <div className="mt-2 text-sm text-gray-600">
-          <span>{model.year}</span>
-          <span className="mx-2">|</span>
-          <span>${model.price.toLocaleString()}</span>
+        <div className="h-10 flex items-center justify-center">
+          <div className="bg-[#191919] text-white text-sm font-medium px-6 py-2 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out cursor-pointer">
+            Ver Modelo
+          </div>
         </div>
       </Link>
-
-      <div className="mt-4">
-        <Link href={`/models/${model.id}`}>
-          <button className="px-4 py-2 rounded-full bg-black text-white text-sm">
-            Ver Modelo
-          </button>
-        </Link>
-      </div>
-    </article>
+    </div>
   );
 }
