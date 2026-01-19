@@ -1,37 +1,44 @@
-# Car Models Challenge (Next.js 14)
+# Car Models Challenge 🚗
 
-## Tech
+A responsive car catalog application featuring filtering, sorting, and detailed model views, strictly following design specifications (Pixel Perfect).
 
-- Next.js 14 (app router)
-- TypeScript
-- Zod for validation
-- Server Components + Server Actions
-- Service → Repository pattern
+**🔗 Live Demo:** https://ego-code-chall-nextjs.vercel.app/
 
-## Setup
+## 🚀 Getting Started
 
-1. Install
+To run the project locally, follow these steps:
+
+1. Install dependencies
    npm install
 
-2. Development
+2. Run development server
    npm run dev
 
-3. Build
+   Open http://localhost:3000 with your browser.
+
+3. Build for production
    npm run build
    npm run start
 
-# Project layout
+## 🛠 Tech Stack
 
-app/ - route components (Server Components)
-app/components/ - UI components (client or server as needed)
-src/services/ - business logic
-src/lib/ - HTTP & repository
-src/schemas/ - Zod schemas
-src/types/ - domain types
-src/actions/ - Server Actions controllers
+- Framework: Next.js 16 (App Router)
+- Library: React 19
+- Language: TypeScript
+- Styling: Tailwind CSS
+- Validation: Zod (Defensive programming on API responses)
 
-# API endpoints
+## 📂 Architecture
 
-List: GET https://challenge.egodesign.dev/api/models/
-Detail: GET https://challenge.egodesign.dev/api/models/<id>/
-All external responses are validated with Zod in the repository layer.
+The project implements the Service-Repository Pattern to ensure separation of concerns:
+
+- app/: UI Layer (Server Components & Client Components).
+- src/services/: Business logic layer.
+- src/lib/: Repository layer (Data access & HTTP adapter).
+- src/schemas/: Zod schemas for runtime validation.
+- src/types/: Shared domain TypeScript definitions.
+
+## 📡 API Integration
+
+- List: GET /api/models/
+- Detail: GET /api/models/<id>/
